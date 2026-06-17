@@ -7,13 +7,13 @@ import "components"
 Window {
     id: window
     width: 960
-    height: 612
+    height: 600
     visible: true
     color: "#1a1a1a"
     title: qsTr("Pratinjau")
     flags: Qt.Window | Qt.FramelessWindowHint
 
-    property string file: "file:///home/frankyrayms/Pictures/wallpapers/StarRail_Image_1751467995.png"
+    property string file: ""
 
     TitleBar {
         id: titleBar
@@ -40,7 +40,7 @@ Window {
     FileDialog {
         id: fileDialog
         title: "Open Image"
-        nameFilters: ["Image files (*.png *.jpg)"]
+        nameFilters: ["Image files (*.png *.jpg *.webp)"]
         onAccepted: window.file = selectedFile.toString()
     }
 

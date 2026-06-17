@@ -1,15 +1,15 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-#include <QLoggingCategory>
+#include <QQuickStyle>
 
 int main(int argc, char *argv[])
 {
-    QLoggingCategory::setFilterRules("qml=true\njs=true");
     QGuiApplication app(argc, argv);
-
     app.setOrganizationName("FraysDev");
     app.setOrganizationDomain("frays.dev");
     app.setApplicationName("Pratinjau");
+
+    QQuickStyle::setStyle("Fusion");
 
     QQmlApplicationEngine engine;
     QObject::connect(

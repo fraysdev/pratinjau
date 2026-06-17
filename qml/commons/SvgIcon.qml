@@ -5,8 +5,8 @@ import Qt5Compat.GraphicalEffects
 Item {
     id: svgIcon
     property string source: ""
-    property int size: 20
     property color color: "#FFFFFF"
+    property int size: 20
 
     width: size
     height: size

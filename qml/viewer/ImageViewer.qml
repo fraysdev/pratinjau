@@ -2,12 +2,13 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import pratinjau
+import "../commons"
 
 Item {
     id: root
 
-    property real _minScale: 0.05
-    property real _maxScale: 16.0
+    property real _minScale: 0.01
+    property real _maxScale: 32.0
     property bool _infoVisible: false
     property string imageSource: ""
 
@@ -54,7 +55,7 @@ Item {
             source: root.imageSource
             asynchronous: true
             cache: false
-            smooth: false
+            smooth: true
             antialiasing: true
 
             transformOrigin: Item.TopLeft
@@ -102,7 +103,7 @@ Item {
     Rectangle {
         id: statusBar
         color: "#1d1d1d"
-        height: 36
+        height: 24
 
         anchors {
             left: parent.left
@@ -120,29 +121,42 @@ Item {
             anchors.leftMargin: 8
             anchors.rightMargin: 8
 
-            Text {
-                text: "Hello, world!"
-                color: "#e0f0ff"
+            CTextIcon {
+                source: "folder.svg"
+                text: info.name
+                color: "#b0c0cf"
                 font.weight: 500
             }
 
-            Text {
-                text: `Size: ${info.fileSize}`
-                color: "#e0f0ff"
+            CTextIcon {
+                source: "image/image.svg"
+                text: `${image.width}x${image.height}`
+                color: "#b0c0cf"
                 font.weight: 500
             }
 
-            Text {
-                text: `Resolution: ${image.width}x${image.height}`
-                color: "#e0f0ff"
+            CTextIcon {
+                source: "file.svg"
+                text: formatSize(info.size)
+                color: "#b0c0cf"
                 font.weight: 500
             }
 
             Item { Layout.fillWidth: true }
 
-            Text {
-                text: `Zoom: ${image.scale.toFixed(2)}x`
-                color: "#e0f0ff"
+            CButton {
+                source: image.smooth
+                        ? "image/smooth.svg"
+                        : "image/pixelated.svg"
+                text: image.smooth ? "Smooth" : "Pixelated"
+                color: "#b0c0cf"
+                onClicked: image.smooth = !image.smooth
+            }
+
+            CTextIcon {
+                source: "image/zoom.svg"
+                text: `${image.scale.toFixed(2)}x`
+                color: "#b0c0cf"
                 font.weight: 500
             }
         }
@@ -153,7 +167,7 @@ Item {
 
         const scaleX = flick.width  / image.implicitWidth
         const scaleY = flick.height / image.implicitHeight
-        zoomToScale(Math.min(scaleX, scaleY, 1.0))
+        zoomToScale(Math.min(scaleX, scaleY, 16))
     }
 
     function zoomToScale(scale) {
@@ -162,5 +176,12 @@ Item {
             flick.contentX = Math.max(0, (flick.contentWidth  - flick.width)  / 2)
             flick.contentY = Math.max(0, (flick.contentHeight - flick.height) / 2)
         })
+    }
+
+    function formatSize(size) {
+        if (size === 0) return '0 B';
+        const units = ['B', 'KB', 'MB', 'GB', 'TB', 'PB'];
+        const i = Math.floor(Math.log(size) / Math.log(1024));
+        return parseFloat((size / Math.pow(1024, i)).toFixed(2)) + ' ' + units[i];
     }
 }

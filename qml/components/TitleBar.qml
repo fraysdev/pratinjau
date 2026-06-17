@@ -39,7 +39,7 @@ Rectangle {
 
             SvgIcon {
                 anchors.centerIn: parent
-                source: "minimize.svg"
+                source: "window/minimize.svg"
                 color: "#ffffff"
                 size: 16
             }
@@ -62,7 +62,7 @@ Rectangle {
 
             SvgIcon {
                 anchors.centerIn: parent
-                source: "maximize.svg"
+                source: "window/maximize.svg"
                 color: "#ffffff"
                 size: 16
             }
@@ -85,7 +85,7 @@ Rectangle {
 
             SvgIcon {
                 anchors.centerIn: parent
-                source: "close.svg"
+                source: "window/close.svg"
                 color: "#ffffff"
                 size: 16
             }
