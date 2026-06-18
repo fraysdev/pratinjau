@@ -1,7 +1,7 @@
 import QtQuick
 import QtQuick.Dialogs
 
-import "viewer"
+import "viewers"
 import "components"
 
 Window {
@@ -23,25 +23,22 @@ Window {
         anchors.top: parent.top
     }
 
-    Rectangle {
+    Viewer {
+        id: viewer
         anchors.top: titleBar.bottom
         anchors.bottom: parent.bottom
         anchors.left: parent.left
         anchors.right: parent.right
-        color: "transparent"
-
-        ImageViewer {
-            id: viewer
-            anchors.fill: parent
-            imageSource: window.file
-        }
     }
 
     FileDialog {
         id: fileDialog
         title: "Open Image"
         nameFilters: ["Image files (*.png *.jpg *.webp)"]
-        onAccepted: window.file = selectedFile.toString()
+        onAccepted: {
+            window.file = selectedFile.toString()
+            viewer.openFile(window.file)
+        }
     }
 
     Component.onCompleted: {

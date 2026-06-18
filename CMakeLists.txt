@@ -12,25 +12,46 @@ qt_add_executable(pratinjau-bin
     main.cpp
 )
 
+set(qml_singletons
+    qml/Style.qml
+    qml/ViewerRegistry.qml
+)
+
+set_source_files_properties(${qml_singletons}
+    PROPERTIES QT_QML_SINGLETON_TYPE TRUE)
+
 qt_add_qml_module(pratinjau-bin
     URI pratinjau
     QML_FILES qml/Main.qml
+    QML_FILES qml/Viewer.qml
     QML_FILES qml/commons/CButton.qml
     QML_FILES qml/commons/CText.qml
     QML_FILES qml/commons/CTextIcon.qml
     QML_FILES qml/commons/SvgIcon.qml
     QML_FILES qml/components/TitleBar.qml
-    QML_FILES qml/viewer/ImageViewer.qml
-    QML_FILES qml/viewer/NoFileViewer.qml
+    QML_FILES qml/viewers/ImageViewer.qml
+    QML_FILES qml/viewers/NoneViewer.qml
+    QML_FILES ${qml_singletons}
 
+    RESOURCES assets/fonts/InputMono-Black.ttf
+    RESOURCES assets/fonts/InputMono-Bold.ttf
+    RESOURCES assets/fonts/InputMono-ExtraLight.ttf
+    RESOURCES assets/fonts/InputMono-Light.ttf
+    RESOURCES assets/fonts/InputMono-Medium.ttf
+    RESOURCES assets/fonts/InputMono-Regular.ttf
+    RESOURCES assets/fonts/InputMono-Thin.ttf
+    RESOURCES assets/fonts/PlusJakartaSans.ttf
+
+    RESOURCES assets/icons/image/resolution.svg
     RESOURCES assets/icons/image/pixelated.svg
     RESOURCES assets/icons/image/smooth.svg
     RESOURCES assets/icons/image/image.svg
     RESOURCES assets/icons/image/zoom.svg
-    RESOURCES assets/icons/folder.svg
     RESOURCES assets/icons/window/close.svg
     RESOURCES assets/icons/window/maximize.svg
     RESOURCES assets/icons/window/minimize.svg
+    RESOURCES assets/icons/storage.svg
+    RESOURCES assets/icons/folder.svg
     RESOURCES assets/icons/file.svg
 
     SOURCES src/fileinfo.h src/fileinfo.cpp

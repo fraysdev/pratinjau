@@ -10,7 +10,9 @@ Item {
     property real _minScale: 0.01
     property real _maxScale: 32.0
     property bool _infoVisible: false
-    property string imageSource: ""
+
+    property string fileSource: ""
+    property bool isReady: image.status === Image.Ready
 
     Rectangle {
         anchors.fill: parent
@@ -52,7 +54,7 @@ Item {
 
         Image {
             id: image
-            source: root.imageSource
+            source: root.fileSource
             asynchronous: true
             cache: false
             smooth: true
@@ -113,7 +115,7 @@ Item {
 
         FileInfo {
             id: info
-            path: root.imageSource
+            path: root.fileSource
         }
 
         RowLayout {
@@ -122,24 +124,19 @@ Item {
             anchors.rightMargin: 8
 
             CTextIcon {
-                source: "folder.svg"
-                text: info.name
-                color: "#b0c0cf"
-                font.weight: 500
-            }
-
-            CTextIcon {
-                source: "image/image.svg"
+                source: "image/resolution.svg"
                 text: `${image.width}x${image.height}`
                 color: "#b0c0cf"
                 font.weight: 500
+                font.family: Style.monoFont
             }
 
             CTextIcon {
-                source: "file.svg"
+                source: "storage.svg"
                 text: formatSize(info.size)
                 color: "#b0c0cf"
                 font.weight: 500
+                font.family: Style.monoFont
             }
 
             Item { Layout.fillWidth: true }
@@ -150,6 +147,8 @@ Item {
                         : "image/pixelated.svg"
                 text: image.smooth ? "Smooth" : "Pixelated"
                 color: "#b0c0cf"
+                font.weight: 500
+                font.family: Style.monoFont
                 onClicked: image.smooth = !image.smooth
             }
 
@@ -158,6 +157,7 @@ Item {
                 text: `${image.scale.toFixed(2)}x`
                 color: "#b0c0cf"
                 font.weight: 500
+                font.family: Style.monoFont
             }
         }
     }

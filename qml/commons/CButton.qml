@@ -28,6 +28,7 @@ Button {
             // visible: control.text
             color: control.color
             text: control.text
+            font: control.font
         }
     }
 }
